@@ -1,11 +1,10 @@
-import { User } from "../models/UserSchema.js";
-import { Otp } from "../models/OtpSchema.js"
+import User from "../models/userModel.js"
+import Otp from "../models/OtpSchema.js"
 import bcrypt from 'bcrypt'
-import { Profile } from "../models/ProfileSchema.js";
+import Profile from "../models/ProfileSchema.js"
 import jwt from "jsonwebtoken"
 
-
-const sendOtp = async (req, res) => {
+export const sendOtp = async (req, res) => {
     try {
         const { email } = req.body;
         const existingUser = await User.findOne({ email });
@@ -29,8 +28,7 @@ const sendOtp = async (req, res) => {
     }
 }
 
-
-const signup = async (req, res) => {
+export const signup = async (req, res) => {
     try {
         console.log(req.body)
         const { firstName, lastName, email, password, accountType, otp } = req.body
@@ -68,8 +66,7 @@ const signup = async (req, res) => {
     }
 }
 
-
-const login = async (req, res) => {
+export const login = async (req, res) => {
     try {
         const { email, password } = req.body
         if (!email || !password) {
@@ -121,8 +118,7 @@ const login = async (req, res) => {
     }
 }
 
-
-const logout = async (req, res) => {
+export const logout = async (req, res) => {
     res.clearCookie("token", { path: '/' })
     return res.status(200).json({
         success: true,
@@ -130,8 +126,7 @@ const logout = async (req, res) => {
     })
 }
 
-
-const changePassword = async (req, res) => {
+export const changePassword = async (req, res) => {
     try {
         const  user_id  = req.user.id
         if (!user_id) {
@@ -166,6 +161,3 @@ const changePassword = async (req, res) => {
         console.log(error)
     }
 }
-
-
-export { sendOtp, signup, login, logout, changePassword }

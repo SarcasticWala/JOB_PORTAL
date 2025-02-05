@@ -7,4 +7,6 @@ const ProfileSchema = new mongoose.Schema({
     contact: Number
 })
 
-export const Profile = mongoose.model('Profile',ProfileSchema)
+const Profile = mongoose.model('Profile', ProfileSchema);
+
+export default Profile;

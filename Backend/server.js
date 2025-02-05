@@ -34,7 +34,14 @@ app.use('/post', postRouter)
 app.use('/profile', ProfileRouter)
 
 
-await mongoose.connect(process.env.MONGODB_URL).then(() => console.log("Database Connected")).catch((error) => console.log(error))
+const connectDB = async () => {
+    mongoose.connection.on('connected', () => {
+        console.log('Database connected');
+    });
+    await mongoose.connect(`${process.env.MONGODB_URL}/jobportal`);
+}
+
+connectDB();
 cloudinaryConnect();
 
 

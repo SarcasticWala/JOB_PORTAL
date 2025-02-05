@@ -1,7 +1,17 @@
-import { Otp } from "../models/OtpSchema.js"
+import Otp from "../models/OtpSchema.js";
 import { User } from "../models/UserSchema.js"
 import bcrypt from 'bcrypt'
+import nodemailer from 'nodemailer'
 
+const transporter = nodemailer.createTransport({
+    host: process.env.MAIL_HOST,
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS
+    }
+});
 
 const verifyEmail = async (req, res) => {   
     const { email } = req.body
@@ -17,10 +27,29 @@ const verifyEmail = async (req, res) => {
 
     const otp = Math.round(Math.random() * 1000000)
     await Otp.create({ otp: otp, email: email })
-    return res.status(200).json({
-        success: true,
-        message: "Otp send successfully"
-    })
+
+    const mailOptions = {
+        from: process.env.MAIL_USER,
+        to: email,
+        subject: 'OTP Verification',
+        text: `Your OTP is ${otp}`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log('Error sending email:', error);
+            return res.status(500).json({
+                success: false,
+                message: "Failed to send OTP"
+            });
+        } else {
+            console.log('Email sent:', info.response);
+            return res.status(200).json({
+                success: true,
+                message: "Otp send successfully"
+            });
+        }
+    });
 }
 
 const verifyOtp = async (req, res) => {

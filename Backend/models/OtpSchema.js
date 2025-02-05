@@ -1,33 +1,21 @@
-import mongoose, { Types } from "mongoose";
-import mailsender from "../utils/mailsender.js";
+import mongoose from 'mongoose'
 
-const OtpSchema = new mongoose.Schema({
-    otp: Number,
-    email: String,
+const otpSchema = new mongoose.Schema({
+    otp: {
+        type: Number,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now,
+        expires: 300 // 5 minutes
     }
 })
 
+const Otp = mongoose.model('Otp', otpSchema)
 
-// send mail
-const sendVerificationMail = async(email, otp) =>{
-    try {
-        const response = await mailsender(email,"Verification email from JobSeeker",`<p>Your otp is => ${otp}</p>`)
-        console.log(response)
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-OtpSchema.pre('save', async function(next){
-    
-    await sendVerificationMail(this.email, this.otp)
-    next()
-})
-
-export const Otp = mongoose.model('Otp',OtpSchema)
-
-
-Otp.collection.createIndex({ createdAt: 1 }, { expireAfterSeconds: 2000 });
+export default Otp

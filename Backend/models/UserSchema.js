@@ -25,4 +25,11 @@ const UserSchema = new mongoose.Schema({
     }]
 })
 
-export const User = mongoose.model('User',UserSchema)
+let User;
+try {
+    User = mongoose.model('User');
+} catch (error) {
+    User = mongoose.model('User', UserSchema);
+}
+
+export { User };

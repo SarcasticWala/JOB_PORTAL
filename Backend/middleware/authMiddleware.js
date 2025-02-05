@@ -1,51 +1,35 @@
-import jwt from "jsonwebtoken"
+import jwt from 'jsonwebtoken'
+import User from '../models/userModel.js'
 
-const auth = async(req, res, next) => {
-    const token = req.cookies.token;
+export const auth = async (req, res, next) => {
+    const token = req.header('Authorization').replace('Bearer ', '')
 
     try {
-        if(!token){
-            return res.status(404).json({
-                success: false,
-                message: "token not found"
-            })
-        }
-        
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        req.user = decoded
+        const user = await User.findOne({ _id: decoded.id, 'tokens.token': token })
 
-        next()
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-const isHr = async(req, res, next) => {
-    try {
-        if(req.user.accountType != "hr"){
-            return res.status(400).json({
-                success: false, 
-                message: "This route is only for HR"
-            })
+        if (!user) {
+            throw new Error()
         }
+
+        req.token = token
+        req.user = user
         next()
     } catch (error) {
-        console.log(error)
+        res.status(401).json({ message: 'Please authenticate' })
     }
 }
 
-const isEmp = async(req, res, next) => {
-    try {
-        if(req.user.accountType != "employee"){
-            return res.status(400).json({
-                success: false, 
-                message: "This route is only for Employee"
-            })
-        }
-        next()
-    } catch (error) {
-        console.log(error)
+export const isEmp = (req, res, next) => {
+    if (req.user.role !== 'employee') {
+        return res.status(403).json({ message: 'Access denied' })
     }
+    next()
 }
 
-export {auth, isHr, isEmp}
+export const isHr = (req, res, next) => {
+    if (req.user.role !== 'hr') {
+        return res.status(403).json({ message: 'Access denied' })
+    }
+    next()
+}

@@ -1,8 +1,10 @@
+import mongoose from 'mongoose';
 import { User } from '../models/UserSchema.js'
-import { Profile } from '../models/ProfileSchema.js'
+import Profile from '../models/ProfileSchema.js'
 import imageupload from '../utils/imageupload.js'
 import { Post } from '../models/PostSchema.js'
 
+mongoose.set('strictPopulate', false);
 
 const updateProfile = async (req, res) => {
     try {
