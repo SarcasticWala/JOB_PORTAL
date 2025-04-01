@@ -12,7 +12,7 @@ const Jobs = () => {
   const token = useSelector((state) => state.auth.token);
 
   async function getPosts() {
-    let res = await fetch("http://localhost:3000/post/getAllPost", {
+    let res = await fetch("https://job-portal-rvta.onrender.com/post/getAllPost", {
       method: "GET",
       credentials: 'include',
     });
@@ -37,7 +37,7 @@ const Jobs = () => {
       toast.error("HRs can't apply for jobs");
       return;
     }
-    let res = await fetch("http://localhost:3000/post/applyPost", {
+    let res = await fetch("https://job-portal-rvta.onrender.com/post/applyPost", {
       method: "POST",
       credentials: 'include',
       headers: {

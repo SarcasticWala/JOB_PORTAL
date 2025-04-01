@@ -49,7 +49,7 @@ const AddPost = () => {
             formData.append("post_image", imageFile);
         }
 
-        let res = await fetch("http://localhost:3000/post/createPost", {
+        let res = await fetch("https://job-portal-rvta.onrender.com/post/createPost", {
             method: 'POST',
             credentials: 'include',
             body: formData

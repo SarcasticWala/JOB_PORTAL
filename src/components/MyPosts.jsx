@@ -9,7 +9,7 @@ const MyPosts = () => {
 
   useEffect(() => {
     async function getPosts() {
-      let res = await fetch("http://localhost:3000/profile/getMyPosts", {
+      let res = await fetch("https://job-portal-rvta.onrender.com/profile/getMyPosts", {
         method: "GET",
         credentials: 'include',
       });
@@ -30,7 +30,7 @@ const MyPosts = () => {
 
     const toastId = toast.loading('Deleting Post...');
     try {
-      let res = await fetch(`http://localhost:3000/post/deletePost`, {
+      let res = await fetch(`https://job-portal-rvta.onrender.com/post/deletePost`, {
         method: "DELETE",
         credentials: 'include',
         headers: {

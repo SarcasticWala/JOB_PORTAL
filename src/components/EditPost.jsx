@@ -22,7 +22,7 @@ const EditPost = () => {
         const fetchPost = async () => {
             if (postId) {
                 console.log(postId)
-                let res = await fetch(`http://localhost:3000/post/getPostDetails`, {
+                let res = await fetch(`https://job-portal-rvta.onrender.com/post/getPostDetails`, {
                     method: "POST",
                     credentials: 'include',
                     headers: {
@@ -77,7 +77,7 @@ const EditPost = () => {
         newForm.append('post_id', postId)
 
         console.log(newForm)
-        let res = await fetch(`http://localhost:3000/post/editPost`, {
+        let res = await fetch(`https://job-portal-rvta.onrender.com/post/editPost`, {
             method: "PUT",
             credentials: 'include',
             body: newForm

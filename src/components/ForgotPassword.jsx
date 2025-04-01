@@ -14,7 +14,7 @@ const ForgotPassword = () => {
 
         const toastId = toast.loading("loading...");
         try {
-            let res = await fetch("http://localhost:3000/auth/verifyEmail", {
+            let res = await fetch("https://job-portal-rvta.onrender.com/auth/verifyEmail", {
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'

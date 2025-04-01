@@ -25,7 +25,7 @@ const ContactForm = () => {
         const loginToastId = toast.loading("Message sending...");
 
         try {
-            const response = await fetch('http://localhost:3000/contact-us', {
+            const response = await fetch('https://job-portal-rvta.onrender.com/contact-us', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

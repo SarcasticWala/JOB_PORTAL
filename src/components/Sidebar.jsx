@@ -16,7 +16,7 @@ export default function Sidebar() {
         let result = window.confirm("Sure You wanna Logout?");
         
         if(result){
-            let res = await fetch("http://localhost:3000/auth/logout", {
+            let res = await fetch("https://job-portal-rvta.onrender.com/auth/logout", {
                 method: "POST",
                 credentials: 'include',
                 headers: {

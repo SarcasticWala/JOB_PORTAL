@@ -9,7 +9,7 @@ const AppliedUsers = () => {
 
   useEffect(() => {
     const getAppliedUsers = async () => {
-      let res = await fetch("http://localhost:3000/profile/getAppliedUsers", {
+      let res = await fetch("https://job-portal-rvta.onrender.com/profile/getAppliedUsers", {
         method: "POST",
         credentials: 'include',
         headers: {

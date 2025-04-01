@@ -41,7 +41,7 @@ const Home = () => {
 
     const loginToastId = toast.loading("Logging in...");
 
-    let response = await fetch("http://localhost:3000/auth/login", {
+    let response = await fetch("https://job-portal-rvta.onrender.com/auth/login", {
       method: "POST",
       credentials: 'include',
       headers: {
@@ -51,7 +51,7 @@ const Home = () => {
     })
 
     response = await response.json()
-    console.log(response)
+    console.log("+++",response)
     if (response.success === true) {
       toast.update(loginToastId, {
         render: "Login successful",

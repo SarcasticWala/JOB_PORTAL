@@ -6,7 +6,7 @@ const Applied = () => {
 
     useEffect(() => {
       const getApplyPosts = async () => {
-        let res = await fetch("http://localhost:3000/profile/getApplyPost", {
+        let res = await fetch("https://job-portal-rvta.onrender.com/profile/getApplyPost", {
           method: "GET",
           credentials: 'include',
         });

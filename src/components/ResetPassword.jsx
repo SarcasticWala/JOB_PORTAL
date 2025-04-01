@@ -25,7 +25,7 @@ const ResetPassword = () => {
         } else {
             // update the password
             try {
-                let res = await fetch("http://localhost:3000/auth/resetPassword", {
+                let res = await fetch("https://job-portal-rvta.onrender.com/auth/resetPassword", {
                     method: "POST",
                     credentials: 'include',
                     headers: {
